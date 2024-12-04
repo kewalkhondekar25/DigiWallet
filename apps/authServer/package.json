@@ -1,7 +1,7 @@
 {
-  "name": "apigateway",
+  "name": "authserver",
   "version": "1.0.0",
-  "description": "a microservice for authentication",
+  "description": "a microservice for authentication and authorization",
   "main": "index.js",
   "scripts": {
     "build": "npx esbuild ./src/index.ts --bundle --platform=node --outfile=dist/index.js",
@@ -9,26 +9,18 @@
     "dev": "nodemon src/index.ts"
   },
   "keywords": [
-    "nodejs",
-    "express",
-    "ts"
+    "auth",
+    "jwt"
   ],
   "author": "Kewal Khondekar",
   "license": "ISC",
   "dependencies": {
-    "@repo/db": "*",
     "@types/express": "^5.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "esbuild": "^0.24.0",
     "express": "^4.21.1",
-    "http-proxy-middleware": "^3.0.3",
     "path": "^0.12.7",
     "prettier": "^3.4.1"
-  },
-  "devDependencies": {
-    "@types/cors": "^2.8.17",
-    "@types/http-proxy-middleware": "^1.0.0",
-    "nodemon": "^3.1.7"
   }
 }
