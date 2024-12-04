@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors"
-import { verifyGatewaySecret } from "./middlewares/verifyGateway.middleware";
+import errorHandler from "./middlewares/errorHandler.middleware";
 
 const app = express();
 
@@ -10,4 +10,6 @@ app.use(cors({
   credentials: true,
 }));
 
-export { app };
+app.use(errorHandler);
+
+export default app;
