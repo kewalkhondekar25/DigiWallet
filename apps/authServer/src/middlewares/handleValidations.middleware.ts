@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from "express"
 import { z, ZodType, ZodError } from "zod";
 
-const handleValidations = ( schema: ZodType) => {
+const handleValidations = ( schema: ZodType<any, any, any>) => {
   return (req: Request, res: Response, next: NextFunction): void => {
     try {
-      req.body = schema.safeParse(req.body);
+      req.body = schema.parse(req.body);
       next();
     } catch (error) {
       if(error instanceof ZodError){
