@@ -30,11 +30,10 @@ const signUpUser = asyncHandler( async (req, res) => {
       new apiSuccessResponse(
         201,
         newUser,
-        "User SignedUp Successfully"
+        "User signed up successfully"
       )
     );
   } catch (error) {
-
     if(error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002"){
       return res.status(409).json(
         new apiSuccessResponse(
@@ -43,7 +42,6 @@ const signUpUser = asyncHandler( async (req, res) => {
         )
       );
     };
-
     console.log(error);
     throw new apiErrorResponse(
       500,
