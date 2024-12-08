@@ -70,6 +70,55 @@ const signUpUser = asyncHandler( async (req, res) => {
   };
 }); 
 
+const signInUser = asyncHandler( async (req, res) => {
+  //take email, password from body
+  const { email, password } = req.body;
+  //check if user with email exists
+  const user = await prisma.users.findUnique({
+    where: {
+      email
+    },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      password: true,
+      isVerified: true
+    }
+  });
+
+  if(!user){
+    throw new apiErrorResponse(
+      404,
+      "User with email not found."
+    )
+  };
+  //check if user is verified or not
+  if(!user.isVerified){
+    throw new apiErrorResponse(
+      403,
+      "User is not verified, please verify your account"
+    )
+  };
+  //verify password
+  const recivedPassword = password;
+  const encryptedPassword = user.password;
+  const isPasswordCorrect = await decryptData(recivedPassword, encryptedPassword);
+  if(!isPasswordCorrect){
+    throw new apiErrorResponse(
+      401,
+      "Incorrect password, please try again"
+    )
+  };
+  //give token
+  return res.status(200).json(
+    new apiSuccessResponse(
+      200,
+      "User signed in successfully."
+    )
+  );
+});
+
 const verifyOtp = asyncHandler( async (req, res) => {
 
   const { id, otp: recivedOtp } = req.body;
@@ -210,8 +259,11 @@ const resendOtp = asyncHandler( async (req, res) => {
   );
 });
 
+
+
 export {
   signUpUser,
+  signInUser,
   verifyOtp,
   resendOtp
 };

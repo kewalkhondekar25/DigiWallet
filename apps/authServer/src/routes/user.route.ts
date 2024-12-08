@@ -1,13 +1,18 @@
 import { Router } from "express";
-import { resendOtp, signUpUser, verifyOtp } from "../controllers/user.controller";
+import { resendOtp, signInUser, signUpUser, verifyOtp } from "../controllers/user.controller";
 import handleValidations from "../middlewares/handleValidations.middleware";
-import { validateSignUpUsers, validateOtp, validateUserId } from "../validations/userInput.validation";
+import { validateSignUpUsers, validateOtp, validateUserId, validateSignInUser } from "../validations/userInput.validation";
 
 const router = Router();
 
 router.route("/signup").post(
   handleValidations(validateSignUpUsers),
   signUpUser
+);
+
+router.route("/signin").post(
+  handleValidations(validateSignInUser),
+  signInUser
 );
 
 router.route("/verify-otp").post(
