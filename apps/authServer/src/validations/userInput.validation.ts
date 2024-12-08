@@ -6,6 +6,17 @@ const validateSignUpUsers = z.object({
   password: z.string().min(3, "Password must be at least 3 characters long")
 });
 
+const validateOtp = z.object({
+  id: z.number().min(1),
+  otp: z.string().min(6, "OTP must be 6 digit only")
+});
+
+const validateUserId = z.object({
+  id: z.number().min(1)
+});
+
 export {
-  validateSignUpUsers
+  validateSignUpUsers,
+  validateOtp,
+  validateUserId
 };

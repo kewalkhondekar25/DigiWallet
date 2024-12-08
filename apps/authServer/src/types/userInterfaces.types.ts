@@ -3,3 +3,11 @@ export interface SignUpRequestBody {
   email: string,
   password: string
 };
+
+export interface createdUser {
+  id: number,
+  name: string,
+  email: string,
+  isVerified: boolean,
+  createdAt: Date
+}

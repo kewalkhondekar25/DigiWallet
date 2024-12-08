@@ -14,6 +14,20 @@ const encryptData = async (payload: string): Promise<string> => {
   }
 };
 
+const decryptData = async ( payload: string, encryptedPayload: string): Promise<Boolean> => {
+  try {
+    const decryptStatus = await bcrypt.compare(payload, encryptedPayload);
+    return decryptStatus;
+  } catch (error) {
+    throw new apiErrorResponse(
+      500,
+      "Failed to decrypt data",
+      error instanceof Error ? [error.message] : ["unknown error"]
+    )
+  }
+};
+
 export {
-  encryptData
+  encryptData,
+  decryptData
 }
