@@ -11,3 +11,13 @@ export interface createdUser {
   isVerified: boolean,
   createdAt: Date
 }
+
+export interface accessTokenType {
+  id: number,
+  name: string,
+  email: string
+}
+
+export interface refreshTokenType {
+  id: string
+};
