@@ -2,7 +2,7 @@ import { accessTokenType, refreshTokenType } from "../types/userInterfaces.types
 import jwt from "jsonwebtoken"
 import apiErrorResponse from "../utils/apiErrorResponse";
 
-const generateAccessToken =  (payload: accessTokenType) => {
+const generateAccessToken = (payload: accessTokenType) => {
 
   if(!process.env.ACCESS_TOKEN_SECRET){
     throw new apiErrorResponse(

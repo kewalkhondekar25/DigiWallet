@@ -7,6 +7,7 @@ import { SignUpRequestBody } from "../types/userInterfaces.types";
 import { expireOtp, generateOtp } from "../utils/otpOperations";
 import { isOtpExpire } from "../utils/calculateOtpExpiry";
 import { getCurrentTime } from "../utils/getCurrentTime";
+import { generateAccessToken, generateRefreshToken } from "../services/generateTokens.service";
 
 const signUpUser = asyncHandler( async (req, res) => {
 
@@ -71,9 +72,9 @@ const signUpUser = asyncHandler( async (req, res) => {
 }); 
 
 const signInUser = asyncHandler( async (req, res) => {
-  //take email, password from body
+
   const { email, password } = req.body;
-  //check if user with email exists
+
   const user = await prisma.users.findUnique({
     where: {
       email
@@ -93,14 +94,14 @@ const signInUser = asyncHandler( async (req, res) => {
       "User with email not found."
     )
   };
-  //check if user is verified or not
+
   if(!user.isVerified){
     throw new apiErrorResponse(
       403,
       "User is not verified, please verify your account"
     )
   };
-  //verify password
+
   const recivedPassword = password;
   const encryptedPassword = user.password;
   const isPasswordCorrect = await decryptData(recivedPassword, encryptedPassword);
@@ -111,11 +112,31 @@ const signInUser = asyncHandler( async (req, res) => {
     )
   };
   //save refresh token in users db
-  //give token
-  return res.status(200).json(
+  const accessTokenPayload = {
+    id: user.id,
+    name: user.name,
+    email: user.email
+  };
+  const refreshTokenPayload = {
+    id: user.id
+  };
+
+  const accessToken = generateAccessToken(accessTokenPayload);
+  const refreshToken = generateRefreshToken(refreshTokenPayload);
+
+  const options = {
+    httpOnly: true,
+    secure: true
+}
+
+  return res
+  .status(200)
+  .cookie("accessToken", accessToken, options)
+  .cookie("refreshToken", refreshToken, options)
+  .json(
     new apiSuccessResponse(
       200,
-      "User signed in successfully."
+      "User signed in successfully.",
     )
   );
 });

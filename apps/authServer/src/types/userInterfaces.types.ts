@@ -19,5 +19,5 @@ export interface accessTokenType {
 }
 
 export interface refreshTokenType {
-  id: string
+  id: number
 };

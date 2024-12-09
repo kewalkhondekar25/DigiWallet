@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt"
+import bcrypt from "bcryptjs"
 import apiErrorResponse from "../utils/apiErrorResponse";
 
 const encryptData = async (payload: string): Promise<string> => {
