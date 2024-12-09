@@ -1,5 +1,6 @@
 import express, { RequestHandler} from "express";
-import cors from "cors"
+import cors from "cors";
+import cookieParser from "cookie-parser"
 import errorHandler from "./middlewares/errorHandler.middleware";
 import fs from "fs";
 import path from "path";
@@ -24,11 +25,11 @@ app.use(express.urlencoded({
   extended: true,
   limit: "16kb"
 }));
-
 app.use(cors({
   origin: process.env.CORS_ORIGIN,
   credentials: true,
 }));
+app.use(cookieParser());
 
 //routes import
 import userRouter from "./routes/user.route";
