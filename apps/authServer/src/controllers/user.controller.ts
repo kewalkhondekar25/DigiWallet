@@ -110,6 +110,7 @@ const signInUser = asyncHandler( async (req, res) => {
       "Incorrect password, please try again"
     )
   };
+  //save refresh token in users db
   //give token
   return res.status(200).json(
     new apiSuccessResponse(
