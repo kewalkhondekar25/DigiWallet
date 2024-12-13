@@ -8,6 +8,7 @@ import { expireOtp, generateOtp } from "../utils/otpOperations";
 import { isOtpExpire } from "../utils/calculateOtpExpiry";
 import { getCurrentTime } from "../utils/getCurrentTime";
 import { generateAccessToken, generateRefreshToken } from "../services/generateTokens.service";
+import { emailOtpQueue } from "../services/queue.service";
 
 const signUpUser = asyncHandler( async (req, res) => {
 
@@ -43,18 +44,22 @@ const signUpUser = asyncHandler( async (req, res) => {
         user_id: newUser.id
       }
     });
-    //email otp
 
+    await emailOtpQueue.add("send-otp", {
+      name: name,
+      email: email,
+      OTP: generatedOtp
+      }
+    );
+    
     return res.status(201).json(
       new apiSuccessResponse(
         201,
-        {
-          user: newUser
-        },
+        { user: newUser },
         "User signed up successfully. OTP has been sent to your email."
       )
     );
-  } catch (error) {
+  }catch(error){
     if(error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002"){
       return res.status(409).json(
         new apiSuccessResponse(

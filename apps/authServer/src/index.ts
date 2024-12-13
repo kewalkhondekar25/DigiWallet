@@ -12,3 +12,11 @@ app.get("/", (req, res) => {
 app.listen(process.env.PORT, () => {
   console.log(`SERVER IS LISTENING ON PORT: ${process.env.PORT}`);
 });
+
+// import { redisConnection } from "./services/queue.service";
+// process.on("SIGINT", async () => {
+//   console.log("Closing Redis connection...");
+//   await redisConnection.quit();
+//   console.log("Redis connection closed. Exiting application.");
+//   process.exit(0);
+// });

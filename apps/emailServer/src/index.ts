@@ -3,7 +3,7 @@ dotenv.config({
   path: "./.env"
 });
 
-import { app } from "./app";
+import { app, emailWorker } from "./app";
 
 app.get("/api/v1/health-check", (req, res) => {
   res.status(200).json({
@@ -14,3 +14,5 @@ app.get("/api/v1/health-check", (req, res) => {
 app.listen(process.env.PORT, () => {
   console.log(`SERVER IS LISTENING ON PORT: ${process.env.PORT}`);
 });
+
+emailWorker;
