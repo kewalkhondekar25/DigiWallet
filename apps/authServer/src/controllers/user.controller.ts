@@ -45,13 +45,13 @@ const signUpUser = asyncHandler( async (req, res) => {
       }
     });
 
-    await emailOtpQueue.add("send-otp", {
+    await emailOtpQueue.add("send-welcome-otp", {
       name: name,
       email: email,
       OTP: generatedOtp
       }
     );
-    
+
     return res.status(201).json(
       new apiSuccessResponse(
         201,
