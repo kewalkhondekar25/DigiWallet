@@ -50,12 +50,19 @@ model wallet_balances {
 }
 
 model on_ramp_txn {
-  id             Int      @id @default(autoincrement())
+  id             Int         @id @default(autoincrement())
   on_ramp_txn_id String?
-  amount         Int      @default(0)
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  amount         Int         @default(0)
+  status         txn_status?
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
 
   user_id Int
   user    Users @relation(fields: [user_id], references: [id])
+}
+
+enum txn_status {
+  PROCESSING
+  SUCCESS
+  FAIL
 }
