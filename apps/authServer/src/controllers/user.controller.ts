@@ -240,11 +240,11 @@ const verifyOtp = asyncHandler( async (req, res) => {
       }
     }),
 
-    prisma.on_ramp_txn.create({
-      data: {
-        user_id: id
-      }
-    })
+    // prisma.on_ramp_txn.create({
+    //   data: {
+    //     user_id: id
+    //   }
+    // })
   ]);
 
   return res.status(200).json(
