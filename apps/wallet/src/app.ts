@@ -9,6 +9,12 @@ app.use(cors({
   origin: process.env.CORS_ORIGIN
 }));
 
+//routes import
+import healthRouter from "./routes/health.route";
+
+//routes impl
+app.use("/api/v1", healthRouter);
+
 app.use(errorHandler);
 
-export { app };
+export default app;
