@@ -217,20 +217,35 @@ const verifyOtp = asyncHandler( async (req, res) => {
         retryCount: true
       }
     });
+
     throw new apiErrorResponse(
       400,
       `Incorrect OTP!. you have ${3 - attemptsData.retryCount} attempts remaining`
     )
   };
 
-  await prisma.users.update({
-    where: {
-      id
-    }, 
-    data: {
-      isVerified: true
-    }
-  });
+  await prisma.$transaction([
+    prisma.users.update({
+      where: {
+        id
+      },
+      data: {
+        isVerified: true
+      }
+    }),
+
+    prisma.wallet_balances.create({
+      data: {
+        user_id: id
+      }
+    }),
+
+    prisma.on_ramp_txn.create({
+      data: {
+        user_id: id
+      }
+    })
+  ]);
 
   return res.status(200).json(
     new apiSuccessResponse(
@@ -285,8 +300,6 @@ const resendOtp = asyncHandler( async (req, res) => {
     )
   );
 });
-
-
 
 export {
   signUpUser,

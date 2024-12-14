@@ -18,8 +18,6 @@ export const emailWorker = new Worker("email-otp-queue", async (job) => {
     default:
       break;
   }
-  console.log("email job name: ", job.name);
-  console.log("email job data", job.data);
 }, {
   connection: {
     host: "localhost",
