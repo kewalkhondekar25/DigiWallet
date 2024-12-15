@@ -51,7 +51,7 @@ model wallet_balances {
 
 model on_ramp_txn {
   id             Int         @id @default(autoincrement())
-  on_ramp_txn_id String?
+  on_ramp_txn_id String?     @unique
   amount         Int         @default(0)
   status         txn_status?
   createdAt      DateTime    @default(now())
