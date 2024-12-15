@@ -3,6 +3,7 @@ import apiErrorResponse from "../utils/apiErrorResponse";
 import apiSuccessResponse from "../utils/apiSuccessResponse";
 import asyncHandler from "../utils/asyncHandler";
 import crypto from "crypto";
+import { generateHash } from "../services/generateHash.service";
 
 const onRampTransactions = asyncHandler( async (req, res) => {
 
@@ -17,26 +18,26 @@ const onRampTransactions = asyncHandler( async (req, res) => {
 
   const txnId = crypto.randomUUID();
 
-  const payload = `${id}|${amount}|${txnId}`;
-  const secureHash = crypto
-  .createHmac("sha256", process.env.SECRET_KEY)
-  .update(payload).digest("hex");
+  const payload = JSON.stringify({ id, amount, txnId});
+  const secureHash = generateHash(payload);
+  
+  const token = Buffer.from(`${payload}.${secureHash}`).toString("base64");
 
-  const redirectUrl = `http://localhost:8083/api/v1/txn/process-on-ramp-txn?txnID=${txnId}&amount=${amount}&hash=${secureHash}`;
+  const redirectUrl = `http://localhost:8083/netbanking?token=${encodeURIComponent(token)}`;
 
-  await prisma.on_ramp_txn.create({
-    data: {
-      user_id: id,
-      on_ramp_txn_id: txnId,
-      amount,
-      status: "PROCESSING"
-    }
-  });
+  // await prisma.on_ramp_txn.create({
+  //   data: {
+  //     user_id: id,
+  //     on_ramp_txn_id: txnId,
+  //     amount,
+  //     status: "PROCESSING"
+  //   }
+  // });
 
   return res.status(200).json(
     new apiSuccessResponse(
       200,
-      { txnId, redirectUrl},
+      { redirectUrl },
       "Processing, Redirect to SBI Netbanking"
     )
   );
