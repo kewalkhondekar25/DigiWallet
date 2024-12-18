@@ -1,3 +1,4 @@
+import axios from "axios";
 import { decodeToken } from "../services/decodeToken.service";
 import apiErrorResponse from "../utils/apiErrorResponse";
 import apiSuccessResponse from "../utils/apiSuccessResponse";
@@ -19,6 +20,17 @@ const processOnRampTransaction = asyncHandler( async (req, res) => {
 
   //credits digiwallets a/c
   //creates record
+  //hits webhook
+  try {
+    const response = await axios.post("http://localhost:8084/api/v1/webhook", null, {
+      params: {
+        token
+      }
+    });
+    const data = await response.data;
+  } catch (error) {
+    console.log(error);
+  }
 
   return res.status(200).json(
     new apiSuccessResponse(
