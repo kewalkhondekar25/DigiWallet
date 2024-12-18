@@ -1,5 +1,4 @@
 import { decodeToken } from "../services/decodeToken.service";
-import { generateHash } from "../services/generateHash";
 import apiErrorResponse from "../utils/apiErrorResponse";
 import apiSuccessResponse from "../utils/apiSuccessResponse";
 import asyncHandler from "../utils/asyncHandler";
@@ -11,12 +10,16 @@ const processOnRampTransaction = asyncHandler( async (req, res) => {
   if(!token || typeof token !== "string"){
     throw new apiErrorResponse(
       401,
-      "No token provided or token is not a string"
+      "No Token provided!!! or Invalid Token type!!!"
     );
   };
 
   const decoded = decodeToken(token);
-  
+  const { id, amount, txnId } = decoded;
+
+  //credits digiwallets a/c
+  //creates record
+
   return res.status(200).json(
     new apiSuccessResponse(
       200,

@@ -10,7 +10,7 @@ const onRampTransactions = asyncHandler( async (req, res) => {
   if(!process.env.SECRET_KEY){
     throw new apiErrorResponse(
       500,
-      "No Secret key provided"
+      "No Secret key provided!!!"
     )
   };
   
@@ -24,20 +24,28 @@ const onRampTransactions = asyncHandler( async (req, res) => {
 
   const redirectUrl = `http://localhost:8083/api/v1/txn/process-on-ramp-txn?token=${encodeURIComponent(token)}`;
 
-  // await prisma.on_ramp_txn.create({
-  //   data: {
-  //     user_id: id,
-  //     on_ramp_txn_id: txnId,
-  //     amount,
-  //     status: "PROCESSING"
-  //   }
-  // });
+  const userData = await prisma.on_ramp_txn.create({
+    data: {
+      user_id: id,
+      on_ramp_txn_id: txnId,
+      amount,
+      status: "PROCESSING"
+    },
+    select: {
+      on_ramp_txn_id: true,
+      status: true
+    }
+  });
 
   return res.status(200).json(
     new apiSuccessResponse(
-      200,
-      { txnId, redirectUrl },
-      "Processing, Redirect to SBI Netbanking"
+      201,
+      {
+        status: userData.status,
+        txnId: userData.on_ramp_txn_id,
+        redirectUrl
+      },
+      "Transaction Processing, Redirecting to Netbanking"
     )
   );
 });

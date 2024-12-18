@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload} from "jsonwebtoken";
 import apiErrorResponse from "../utils/apiErrorResponse";
 
 export const decodeToken = (token: string) => {
@@ -10,5 +10,5 @@ export const decodeToken = (token: string) => {
     )
   };
 
-  return jwt.verify(token, process.env.SECRET_KEY);
+  return jwt.verify(token, process.env.SECRET_KEY) as JwtPayload;
 };
