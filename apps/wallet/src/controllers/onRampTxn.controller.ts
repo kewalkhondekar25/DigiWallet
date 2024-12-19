@@ -7,7 +7,7 @@ import { generateToken } from "../services/generateToken";
 
 const onRampTransactions = asyncHandler( async (req, res) => {
 
-  if(!process.env.SECRET_KEY){
+  if(!process.env.SECRET_KEY){  
     throw new apiErrorResponse(
       500,
       "No Secret key provided!!!"
@@ -28,7 +28,7 @@ const onRampTransactions = asyncHandler( async (req, res) => {
     data: {
       user_id: id,
       on_ramp_txn_id: txnId,
-      amount,
+      amount: Number(amount),
       status: "PROCESSING"
     },
     select: {

@@ -1,10 +1,14 @@
 import { Router } from "express";
-import { handleWebhook } from "../controllers/handleWebhook.controler";
+import { handleOffRampTransaction, handleOnRampTransaction } from "../controllers/handleWebhook.controler";
 
 const router = Router();
 
-router.route("/").post(
-  handleWebhook
+router.route("/on-ramp-txn").post(
+  handleOnRampTransaction
 );
+
+router.route("/off-ramp-txn").post(
+  handleOffRampTransaction
+)
 
 export default router;

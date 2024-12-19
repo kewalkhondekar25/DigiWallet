@@ -9,5 +9,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(process.env.PORT, () => {
-  console.log(`SERVR IS LISTENING ON PORT: ${process.env.PORT}`);
+  console.log(`SERVER IS LISTENING ON PORT: ${process.env.PORT}`);
 });

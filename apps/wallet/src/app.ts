@@ -11,11 +11,11 @@ app.use(cors({
 
 //routes import
 import healthRouter from "./routes/health.route";
-import onRampTnxRouter from "./routes/onRampTxn.route";
+import rampTnxRouter from "./routes/onRampTxn.route";
 
 //routes impl
 app.use("/api/v1", healthRouter);
-app.use("/api/v1/txn", onRampTnxRouter);
+app.use("/api/v1/txn", rampTnxRouter);
 
 app.use(errorHandler);
 

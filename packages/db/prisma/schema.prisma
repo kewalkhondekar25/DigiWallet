@@ -14,18 +14,18 @@ datasource db {
 }
 
 model Users {
-  id                 Int                  @id @default(autoincrement())
-  name               String
-  email              String               @unique
-  password           String
-  isVerified         Boolean              @default(false)
-  createdAt          DateTime             @default(now())
-  updatedAt          DateTime             @updatedAt
-  Otps               Otps?
-  wallet_balances    wallet_balances?
-  on_ramp_txn        on_ramp_txn[]
-  off_ramp_txn       off_ramp_txn[]
-  user_bank_ballance user_bank_ballance[]
+  id                  Int                  @id @default(autoincrement())
+  name                String
+  email               String               @unique
+  password            String
+  isVerified          Boolean              @default(false)
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  Otps                Otps?
+  wallet_balances     wallet_balances?
+  on_ramp_txn         on_ramp_txn[]
+  off_ramp_txn        off_ramp_txn[]
+  user_bank_ballances user_bank_ballances?
 }
 
 model Otps {
@@ -75,13 +75,13 @@ model off_ramp_txn {
   user    Users @relation(fields: [user_id], references: [id])
 }
 
-model user_bank_ballance {
+model user_bank_ballances {
   id        Int      @id @default(autoincrement())
   amount    Int      @default(2100000)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user_id Int
+  user_id Int   @unique
   user    Users @relation(fields: [user_id], references: [id])
 }
 
