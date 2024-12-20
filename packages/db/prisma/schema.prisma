@@ -26,6 +26,8 @@ model Users {
   on_ramp_txn         on_ramp_txn[]
   off_ramp_txn        off_ramp_txn[]
   user_bank_ballances user_bank_ballances?
+  sent_transfers      p2p_transfer[]       @relation(name: "fromUserRelation")
+  recived_transfers   p2p_transfer[]       @relation(name: "toUserRelation")
 }
 
 model Otps {
@@ -90,6 +92,18 @@ model my_wallet_bank_ballances {
   amount    Int      @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model p2p_transfer {
+  id          Int      @id @default(autoincrement())
+  recipentsId Int
+  reciversId  Int
+  amount      Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  fromUser Users @relation(name: "fromUserRelation", fields: [recipentsId], references: [id])
+  toUser   Users @relation(name: "toUserRelation", fields: [reciversId], references: [id])
 }
 
 enum txn_status {
