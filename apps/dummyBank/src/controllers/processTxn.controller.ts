@@ -238,7 +238,7 @@ const processOffRampTransaction = asyncHandler( async (req, res) => {
       "Transaction successful"
     )
   );
-})
+});
 
 export { 
   processOnRampTransaction,
