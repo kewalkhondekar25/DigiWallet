@@ -26,6 +26,8 @@ const p2pTransfer = asyncHandler( async (req, res) => {
   try {
     await prisma.$transaction( async (prisma) => {
 
+      await prisma.$queryRaw `SELECT * FROM "wallet_balances" WHERE user_id = ${fromUserId} FOR UPDATE`;
+
       const recipentsData = await prisma.wallet_balances.findUnique({
         where: {
           user_id: Number(fromUserId)
