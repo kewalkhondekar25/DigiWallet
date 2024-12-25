@@ -1,8 +1,9 @@
 import './App.css'
 import { ModeToggle } from './components/theme/mode-toggle'
 import { ThemeProvider } from './components/theme/theme-provider'
-import SignIn from './pages/SignIn'
-import SignUp from './pages/SignUp'
+import OtpPage from './pages/auth/Otp'
+import SignIn from './pages/auth/SignIn'
+import SignUp from './pages/auth/SignUp'
 
 function App() {
   
@@ -11,7 +12,8 @@ function App() {
       <ModeToggle/>
       <div className='flex justify-center place-items-center min-h-screen'>
         {/* <SignUp/> */}
-        <SignIn/>
+        {/* <SignIn/> */}
+        <OtpPage/>
       </div>
     </ThemeProvider>
   )

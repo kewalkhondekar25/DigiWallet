@@ -15,7 +15,14 @@ const signInValidation = () => {
   });
 };
 
+const otpValidation = () => {
+  return yup.object({
+    otp: yup.string().required().length(6, "OTP must be 6 digits").matches(/^\d{6}$/, 'OTP must contain only numbers')
+  });
+};
+
 export {
   signUpValidation,
-  signInValidation
+  signInValidation,
+  otpValidation
 };
