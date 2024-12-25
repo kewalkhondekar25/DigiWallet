@@ -65,6 +65,14 @@ const p2pTransfer = asyncHandler( async (req, res) => {
           }
         }
       });
+
+      await prisma.p2p_transfer.create({
+        data: {
+          recipentsId: Number(fromUserId),
+          reciversId: Number(toUserId),
+          amount: Number(amount)
+        }
+      });
     });
 
     return res.status(200).json(

@@ -13,11 +13,13 @@ app.use(cors({
 import healthRouter from "./routes/health.route";
 import rampTnxRouter from "./routes/onRampTxn.route";
 import p2pTrnsfrRouter from "./routes/p2pTransfer.route";
+import userRouter from "./routes/user.route";
 
 //routes impl
 app.use("/api/v1", healthRouter);
 app.use("/api/v1/txn", rampTnxRouter);
 app.use("/api/v1/trnsfr", p2pTrnsfrRouter);
+app.use("/api/v1/user", userRouter);
 
 app.use(errorHandler);
 
