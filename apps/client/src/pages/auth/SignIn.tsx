@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useFormik } from "formik";
 import { signInValidation } from "@/validations/auth.validation";
+import { Link } from "react-router-dom";
 
 
 
@@ -47,7 +48,7 @@ const SignIn = () => {
               {...formik.getFieldProps("email")}
               name="email"
               placeholder="johndoe@example.com" />
-            <p className="text-red-500 text-sm">{formik.errors.email}</p>
+            {formik.errors.email ? <p className="text-red-500 text-sm">{formik.errors.email}</p> : null}
           </div>
           <div className="flex flex-col gap-2 mb-3">
             <Label htmlFor="password">Password</Label>
@@ -56,11 +57,16 @@ const SignIn = () => {
               {...formik.getFieldProps("password")}
               name="password"
               placeholder="********" />
-            <p className="text-red-500 text-sm">{formik.errors.password}</p>
+            {formik.errors.password ? <p className="text-red-500 text-sm">{formik.errors.password}</p> : null}
           </div>
         </CardContent>
-        <CardFooter>
+        <CardFooter className="flex flex-col gap-3">
           <Button className="w-full" type="submit" size="lg">Sign In</Button>
+          <p className="text-xs text-gray-400">Don't have an account?
+            <Link to="/signup">
+              <span className="text-white underline ml-1">Sign Up</span>
+            </Link>
+          </p>
         </CardFooter>
       </form>
     </Card>
