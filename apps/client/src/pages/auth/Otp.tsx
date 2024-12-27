@@ -21,7 +21,7 @@ const OtpPage = () => {
   });
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col min-h-screen items-center justify-center p-4 gap-3">
       <Label className="text-lg">One-Time Password</Label>
       <form onSubmit={(e) => {
         e.preventDefault();

@@ -30,46 +30,49 @@ const SignIn = () => {
   });
 
   return (
-    <Card className="w-4/5">
-      <form
-        onSubmit={(e) => {
-          e.preventDefault(),
-            formik.handleSubmit()
-        }}>
-        <CardHeader>
-          <CardTitle className="text-2xl">Sign In</CardTitle>
-          <CardDescription>Enter your email and password below.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="flex flex-col gap-2 mb-3">
-            <Label htmlFor="email">Email</Label>
-            <Input 
-              type="email"
-              {...formik.getFieldProps("email")}
-              name="email"
-              placeholder="johndoe@example.com" />
-            {formik.errors.email ? <p className="text-red-500 text-sm">{formik.errors.email}</p> : null}
-          </div>
-          <div className="flex flex-col gap-2 mb-3">
-            <Label htmlFor="password">Password</Label>
-            <Input 
-              type="password"
-              {...formik.getFieldProps("password")}
-              name="password"
-              placeholder="********" />
-            {formik.errors.password ? <p className="text-red-500 text-sm">{formik.errors.password}</p> : null}
-          </div>
-        </CardContent>
-        <CardFooter className="flex flex-col gap-3">
-          <Button className="w-full" type="submit" size="lg">Sign In</Button>
-          <p className="text-xs text-gray-400">Don't have an account?
-            <Link to="/signup">
-              <span className="text-white underline ml-1">Sign Up</span>
-            </Link>
-          </p>
-        </CardFooter>
-      </form>
-    </Card>
+    <div className="flex min-h-screen items-center justify-center p-4">
+
+      <Card className="w-full">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault(),
+              formik.handleSubmit()
+          }}>
+          <CardHeader>
+            <CardTitle className="text-2xl">Sign In</CardTitle>
+            <CardDescription>Enter your email and password below.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-col gap-2 mb-3">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                type="email"
+                {...formik.getFieldProps("email")}
+                name="email"
+                placeholder="johndoe@example.com" />
+              {formik.errors.email ? <p className="text-red-500 text-sm">{formik.errors.email}</p> : null}
+            </div>
+            <div className="flex flex-col gap-2 mb-3">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                type="password"
+                {...formik.getFieldProps("password")}
+                name="password"
+                placeholder="********" />
+              {formik.errors.password ? <p className="text-red-500 text-sm">{formik.errors.password}</p> : null}
+            </div>
+          </CardContent>
+          <CardFooter className="flex flex-col gap-3">
+            <Button className="w-full" type="submit" size="lg">Sign In</Button>
+            <p className="text-xs text-gray-400">Don't have an account?
+              <Link to="/signup">
+                <span className="text-white underline ml-1">Sign Up</span>
+              </Link>
+            </p>
+          </CardFooter>
+        </form>
+      </Card>
+    </div>
   )
 };
 

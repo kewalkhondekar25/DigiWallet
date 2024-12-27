@@ -1,8 +1,12 @@
-import React from 'react'
+import Layout from "@/components/layout/Layout"
 
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
+    <Layout>
+      <div className='flex justify-center items-center min-h-screen'>
+        <div>hi</div>
+      </div>
+    </Layout>
   )
 }
 
