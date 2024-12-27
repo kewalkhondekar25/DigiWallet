@@ -21,7 +21,7 @@ function App() {
           <Route path='/signin' element={ <SignIn/> } />
           <Route path='/otp' element={ <OtpPage/> } />
           <Route path='/dashboard' element={ <Dashboard/> } />
-          <Route path='/onramp' element={ <OnRampTxn/> } />
+          <Route path='/wallet' element={ <OnRampTxn/> } />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

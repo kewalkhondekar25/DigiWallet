@@ -4,7 +4,7 @@ const Dashboard = () => {
   return (
     <Layout>
       <div className='flex justify-center items-center min-h-screen'>
-        <div>hi</div>
+        <div>this is Dashboard page</div>
       </div>
     </Layout>
   )

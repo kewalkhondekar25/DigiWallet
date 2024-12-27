@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import Sidebar from "../sidebar/Sidebar"
+import Sidebar from "../sidebar/Sidebar";
 
 interface LayoutProps {
   children: ReactNode;
@@ -7,9 +7,9 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <div className="flex w-full">
+    <div className=" relative flex">
       <Sidebar/>
-      <div className="flex-1">{ children }</div>
+      <div className="flex-1">{children}</div>
     </div>
   )
 }
