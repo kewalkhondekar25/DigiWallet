@@ -2,13 +2,17 @@ import { User, Banknote, Landmark, FileClock, LogOut, Wallet, PanelRightClose, P
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Sidebar = () => {
+interface SidebarProps {
+  path: string
+}
+
+const Sidebar = ({ path }: SidebarProps) => {
 
   const [isOpen, setIsOpen] = useState(false);
 
   const handleToggleSidebar = () => {
     setIsOpen(prev => !prev);
-  }
+  };
 
   const icons = [
     {
@@ -19,28 +23,28 @@ const Sidebar = () => {
     {
       icon: Banknote,
       title: "P2P Transfer",
-      path: "wallet"
+      path: "/transfer"
     },
     {
       icon: Landmark,
       title: "Bank",
-      path: "wallet"
+      path: "/bank"
     },
     {
       icon: FileClock,
       title: "Transactions",
-      path: "wallet"
+      path: "/transactions"
     }
   ]
   return (
     <div className="absolute flex">
-      <div className={`flex flex-col justify-between items-center bg-[#18181b] border-solid border-[1px]  h-screen 
+      <div className={`flex flex-col justify-between items-center bg-[#1C1917] border-solid border-[1px]  h-screen 
         transition-all duration-300 ease-in-out ${isOpen ? "w-60" : "w-14"}`}>
         <div>
-          <Link to="/dashboard" onClick={handleToggleSidebar}>
+          <Link to="/dashboard">
             <div className="flex-1 p-3">
               <div className="flex justify-between gap-2">
-                <div className="bg-[#e11d48] rounded-lg"><User className="h-8 w-8"/></div>
+                <div className={`${path === "/dashboard" ? "bg-[#CE1C43] rounded-lg" : null}`}><User className="h-8 w-8"/></div>
                 { isOpen ? (<div className="text-xs font-semibold">
                   <p>kewal</p>
                   <p>kewalkhondekar@icloud.com</p>
@@ -51,9 +55,11 @@ const Sidebar = () => {
           {
             icons.map((items, i) => {
               return (
-                <Link to={`${items.path}`} key={i} onClick={handleToggleSidebar}>
+                <Link to={`${items.path}`} key={i}>
                   <div className={`flex ${isOpen ? "justify-start gap-3" : "justify-center"} p-3`}>
-                    {<items.icon />}
+                    <div className={`${path === items.path ? "bg-[#CE1C43] rounded-lg p-1" : null}`}>
+                      {<items.icon />}
+                    </div>
                     {isOpen ? <span>{items.title}</span> : null}
                   </div>
                 </Link>
@@ -68,10 +74,9 @@ const Sidebar = () => {
       <div className="flex gap-1 p-2 hover:cursor-pointer text-xs"
         onClick={handleToggleSidebar} >
         {isOpen ? <PanelRightOpen /> : <PanelRightClose />}
-        <span className="mt-1">Dashboard</span>
+        <span className="mt-1">{path.replace("/", "").charAt(0).toUpperCase() + path.slice(2)}</span>
       </div>
     </div>
-
   )
 };
 

@@ -5,9 +5,10 @@ import { Routes, Route, BrowserRouter } from "react-router-dom"
 import OtpPage from './pages/auth/Otp'
 import SignIn from './pages/auth/SignIn'
 import SignUp from './pages/auth/SignUp'
-import Dashboard from './pages/dashboard/Dashboard'
-import OnRampTxn from './pages/dashboard/OnRampTxn'
+import Dashboard from './pages/screens/Dashboard'
+import OnRampTxn from './pages/screens/Wallet'
 import Sidebar from './components/sidebar/Sidebar'
+import Wallet from './pages/screens/Wallet'
 
 function App() {
 
@@ -21,7 +22,7 @@ function App() {
           <Route path='/signin' element={ <SignIn/> } />
           <Route path='/otp' element={ <OtpPage/> } />
           <Route path='/dashboard' element={ <Dashboard/> } />
-          <Route path='/wallet' element={ <OnRampTxn/> } />
+          <Route path='/wallet' element={ <Wallet/> } />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
