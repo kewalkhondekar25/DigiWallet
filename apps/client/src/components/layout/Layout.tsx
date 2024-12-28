@@ -12,7 +12,7 @@ const Layout = ({ children }: LayoutProps) => {
 
   return (
     <div className=" relative flex">
-      <Sidebar path={navigate.pathname}/>
+      <Sidebar path={navigate.pathname} />
       <div className="flex-1">{children}</div>
     </div>
   )

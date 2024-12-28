@@ -9,6 +9,7 @@ import Dashboard from './pages/screens/Dashboard'
 import OnRampTxn from './pages/screens/Wallet'
 import Sidebar from './components/sidebar/Sidebar'
 import Wallet from './pages/screens/Wallet'
+import AddToWallet from './components/cards/AddToWallet'
 
 function App() {
 
@@ -16,13 +17,15 @@ function App() {
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       {/* <ModeToggle /> */}
       <BrowserRouter>
-      {/* <Sidebar/> */}
         <Routes>
           <Route path='/signup' element={ <SignUp/> } />
           <Route path='/signin' element={ <SignIn/> } />
           <Route path='/otp' element={ <OtpPage/> } />
           <Route path='/dashboard' element={ <Dashboard/> } />
-          <Route path='/wallet' element={ <Wallet/> } />
+          <Route path='/wallet' element={ <Wallet/> }>
+            <Route path='add-money' element={ <AddToWallet/> }/>
+            <Route path='send-money' element={ <AddToWallet/> }/>
+          </Route>
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

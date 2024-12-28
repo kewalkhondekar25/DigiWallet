@@ -14,6 +14,22 @@ const Sidebar = ({ path }: SidebarProps) => {
     setIsOpen(prev => !prev);
   };
 
+  const breadCrumbs = (path: string) => {
+
+    const pathParts = path.split("/").filter(Boolean);
+
+    if (pathParts.length === 0) {
+      return pathParts[0].charAt(0).toUpperCase() + pathParts[0].slice(1);
+    };
+
+    if (pathParts.length > 1) {
+      const childRoute = pathParts[1].split("-").map(item => item.charAt(0).toUpperCase() + item.slice(1)).join(" ");
+      return `Wallet | ${childRoute}`
+    };
+
+    return pathParts[0].charAt(0).toUpperCase() + pathParts[0].slice(1);
+  };
+
   const icons = [
     {
       icon: Wallet,
@@ -44,8 +60,8 @@ const Sidebar = ({ path }: SidebarProps) => {
           <Link to="/dashboard">
             <div className="flex-1 p-3">
               <div className="flex justify-between gap-2">
-                <div className={`${path === "/dashboard" ? "bg-[#CE1C43] rounded-lg" : null}`}><User className="h-8 w-8"/></div>
-                { isOpen ? (<div className="text-xs font-semibold">
+                <div className={`${path === "/dashboard" ? "bg-[#CE1C43] rounded-lg" : null}`}><User className="h-8 w-8" /></div>
+                {isOpen ? (<div className="text-xs font-semibold">
                   <p>kewal</p>
                   <p>kewalkhondekar@icloud.com</p>
                 </div>) : null}
@@ -57,7 +73,7 @@ const Sidebar = ({ path }: SidebarProps) => {
               return (
                 <Link to={`${items.path}`} key={i}>
                   <div className={`flex ${isOpen ? "justify-start gap-3" : "justify-center"} p-3`}>
-                    <div className={`${path === items.path ? "bg-[#CE1C43] rounded-lg p-1" : null}`}>
+                    <div className={`${path.startsWith(items.path) ? "bg-[#CE1C43] rounded-lg p-1" : null}`}>
                       {<items.icon />}
                     </div>
                     {isOpen ? <span>{items.title}</span> : null}
@@ -71,10 +87,9 @@ const Sidebar = ({ path }: SidebarProps) => {
           <LogOut />
         </div>
       </div>
-      <div className="flex gap-1 p-2 hover:cursor-pointer text-xs"
-        onClick={handleToggleSidebar} >
-        {isOpen ? <PanelRightOpen /> : <PanelRightClose />}
-        <span className="mt-1">{path.replace("/", "").charAt(0).toUpperCase() + path.slice(2)}</span>
+      <div className="flex gap-1 p-2 hover:cursor-pointer text-[0.65rem]">
+        {isOpen ? <PanelRightOpen onClick={handleToggleSidebar} /> : <PanelRightClose onClick={handleToggleSidebar} />}
+        {/* <span className="mt-1">{breadCrumbs(path)}</span> */}
       </div>
     </div>
   )

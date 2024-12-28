@@ -7,7 +7,8 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Button } from "../ui/button";
-import { Send, Wallet, Plus } from "lucide-react";
+import { Send, Wallet } from "lucide-react";
+import { Link } from "react-router-dom";
 
 
 const WalletBalance = () => {
@@ -21,11 +22,18 @@ const WalletBalance = () => {
         <p>&#8377; 1000</p>
       </CardContent>
       <CardFooter className="flex justify-between gap-1">
-        <Button><Wallet/>Add</Button>
-        <Button><Send/>Send</Button>
+        <Link to="/wallet/add-money">
+          <Button>
+            <Wallet />Add
+          </Button>
+        </Link>
+        <Link to="/wallet/send-money">
+          <Button>
+            <Send />Send
+          </Button>
+        </Link>
       </CardFooter>
     </Card>
-
   )
 };
 
