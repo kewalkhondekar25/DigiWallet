@@ -39,7 +39,7 @@ const Sidebar = ({ path }: SidebarProps) => {
     {
       icon: Banknote,
       title: "P2P Transfer",
-      path: "/transfer"
+      path: "/p2p"
     },
     {
       icon: Landmark,
@@ -53,7 +53,7 @@ const Sidebar = ({ path }: SidebarProps) => {
     }
   ]
   return (
-    <div className="absolute flex">
+    <div className="absolute flex z-10">
       <div className={`flex flex-col justify-between items-center bg-[#1C1917] border-solid border-[1px]  h-screen 
         transition-all duration-300 ease-in-out ${isOpen ? "w-60" : "w-14"}`}>
         <div>

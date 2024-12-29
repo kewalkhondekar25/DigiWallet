@@ -6,10 +6,10 @@ import OtpPage from './pages/auth/Otp'
 import SignIn from './pages/auth/SignIn'
 import SignUp from './pages/auth/SignUp'
 import Dashboard from './pages/screens/Dashboard'
-import OnRampTxn from './pages/screens/Wallet'
-import Sidebar from './components/sidebar/Sidebar'
 import Wallet from './pages/screens/Wallet'
 import AddToWallet from './components/cards/AddToWallet'
+import P2pTransfer from './pages/screens/P2pTransfer'
+import Transfer from './components/cards/Transfer'
 
 function App() {
 
@@ -25,6 +25,9 @@ function App() {
           <Route path='/wallet' element={ <Wallet/> }>
             <Route path='add-money' element={ <AddToWallet/> }/>
             <Route path='send-money' element={ <AddToWallet/> }/>
+          </Route>
+          <Route path='/p2p' element={ <P2pTransfer/> }>
+            <Route path='pay' element={ <Transfer/> }/>
           </Route>
         </Routes>
       </BrowserRouter>
