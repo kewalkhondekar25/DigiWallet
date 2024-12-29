@@ -10,6 +10,8 @@ import Wallet from './pages/screens/Wallet'
 import AddToWallet from './components/cards/AddToWallet'
 import P2pTransfer from './pages/screens/P2pTransfer'
 import Transfer from './components/cards/Transfer'
+import Transactions from './pages/screens/Transactions'
+import TxnDetails from './components/cards/TxnDetails'
 
 function App() {
 
@@ -28,6 +30,9 @@ function App() {
           </Route>
           <Route path='/p2p' element={ <P2pTransfer/> }>
             <Route path='pay' element={ <Transfer/> }/>
+          </Route>
+          <Route path='/transactions' element={ <Transactions/> }>
+            <Route path='txn-details' element={ <TxnDetails/> }/>
           </Route>
         </Routes>
       </BrowserRouter>

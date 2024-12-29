@@ -4,7 +4,9 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import { ChangeEvent } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { payTo } from "@/store/features/payment/paymentSlice";
+import { useAppDispatch } from "@/store/hooks";
 
 const P2pTransfer = () => {
 
@@ -61,6 +63,13 @@ const P2pTransfer = () => {
   };
 
   const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const handleNavigate = (name: string) => {
+    dispatch(payTo(name))
+    navigate("/p2p/pay");
+  }
 
   return (
     <Layout>
@@ -76,15 +85,13 @@ const P2pTransfer = () => {
                 {
                   contacts.map((item, i) => {
                     return (
-                      <div key={i}>
-                        <Link to={`/p2p/pay`}>
+                      <div key={i} className="p-2" onClick={() => handleNavigate(item.name)}>
                           <div className="flex items-center gap-3 mb-3 hover:cursor-pointer">
                             <Avatar>
                               <AvatarImage src={item.avatar} />
                             </Avatar>
                             <div>{item.name}</div>
                           </div>
-                        </Link>
                         <Separator />
                       </div>
                     )
@@ -99,4 +106,4 @@ const P2pTransfer = () => {
   )
 };
 
-export default P2pTransfer
+export default P2pTransfer;

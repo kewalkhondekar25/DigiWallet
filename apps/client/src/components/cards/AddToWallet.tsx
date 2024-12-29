@@ -9,12 +9,12 @@ import {
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const AddToWallet = () => {
 
   const path = useLocation();
-  
+  const navigate = useNavigate();
   
   return (
     <Card>
@@ -24,10 +24,11 @@ const AddToWallet = () => {
       </CardHeader>
       <CardContent className="flex flex-col gap-2">
         <Label>Amount</Label>
-        <Input type="number" name="amount" placeholder="100"/>
+        <Input type="number" name="amount" placeholder="Enter Amount"/>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="flex justify-between">
         <Button>Proceed</Button>
+        <Button onClick={() => navigate("/wallet")}>Back</Button>
       </CardFooter>
     </Card>
   );

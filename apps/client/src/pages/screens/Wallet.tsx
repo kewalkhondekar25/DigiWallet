@@ -14,14 +14,14 @@ const Wallet = () => {
         {
           isBaseRoute ? (<WalletBalance />) : (<Outlet />)
         }
-        {
+        {/* {
           isBaseRoute ? null : (
             <Link to="/wallet" className='flex'>
               <ChevronLeft />
               <span>Back</span>
             </Link>
           )
-        }
+        } */}
       </div>
     </Layout>
   )

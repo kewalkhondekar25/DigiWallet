@@ -6,21 +6,28 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Outlet } from "react-router-dom";
+import { useAppSelector } from "@/store/hooks";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+import { useNavigate } from "react-router-dom";
 
 const Transfer = () => {
+
+  const navigate = useNavigate();
+  const { name } = useAppSelector(state => state.paymentState);
   
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Card Title</CardTitle>
-        <CardDescription>Card Description</CardDescription>
+        <CardTitle>Payment</CardTitle>
+        <CardDescription>Paying {name} from your Wallet</CardDescription>
       </CardHeader>
       <CardContent>
-        <Outlet/>
+        <Input type="number" name="amount" placeholder="Enter Amount"/>
       </CardContent>
-      <CardFooter>
-        <p>Card Footer</p>
+      <CardFooter className="flex justify-between">
+        <Button>Proceed</Button>
+        <Button onClick={() => navigate("/p2p")}>Back</Button>
       </CardFooter>
     </Card>
   )
