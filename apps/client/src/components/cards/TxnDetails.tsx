@@ -6,7 +6,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+
 import { useAppSelector } from "@/store/hooks";
+import { CircleCheckBig } from "lucide-react";
+import { Button } from "../ui/button";
+import { Link } from "react-router-dom";
 
 
 const TxnDetails = () => {
@@ -17,13 +22,30 @@ const TxnDetails = () => {
     <Card>
       <CardHeader>
         <CardTitle>Transaction Details</CardTitle>
-        <CardDescription>Success</CardDescription>
+        <CardDescription>
+          <div className="flex flex-col">
+            <span>To: {name}</span>
+            <span>Transaction ID: 9463826491</span>
+          </div>
+        </CardDescription>
       </CardHeader>
       <CardContent>
-        <p>Card Content</p>
+        <div className="flex flex-col justify-center items-center gap-3">
+          <Avatar>
+            <AvatarImage src="https://github.com/shadcn.png" />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
+          <div>&#8377; 100</div>
+          <div className="flex gap-3">
+            <div className="text-green-500"><CircleCheckBig/></div>
+            <span>Success</span>
+          </div>
+        </div>
       </CardContent>
       <CardFooter>
-        <p>Card Footer</p>
+        <Link to="/transactions">
+          <Button>Back</Button>
+        </Link>
       </CardFooter>
     </Card>
   );
