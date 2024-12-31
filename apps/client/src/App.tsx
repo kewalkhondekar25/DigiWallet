@@ -12,8 +12,23 @@ import P2pTransfer from './pages/screens/P2pTransfer'
 import Transfer from './components/cards/Transfer'
 import Transactions from './pages/screens/Transactions'
 import TxnDetails from './components/cards/TxnDetails'
+import { useMutation, useQuery } from '@tanstack/react-query'
+// import { fetchProducts } from './lib/api'
 
 function App() {
+
+  // const { data, isLoading, isError, error, status } = useQuery({
+  //   queryKey: ["products"],
+  //   queryFn: fetchProducts
+  // });
+
+  // console.log("data: ", data);
+  // console.log("isLoading: ", isLoading);
+  // console.log("isisError: ",isError);
+  // console.log("ererror: ",error);
+  // console.log("status: ", status);
+
+  // useMutation()
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">

@@ -12,10 +12,56 @@ import { Button } from "@/components/ui/button"
 import { useFormik } from "formik";
 import { signInValidation } from "@/validations/auth.validation";
 import { Link } from "react-router-dom";
-
-
+import { useMutation } from "@tanstack/react-query";
+import { signInRequest } from "@/lib/apiCalls";
+import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie"
 
 const SignIn = () => {
+
+  //cookie are httponly, they will be sent over https only.
+  // const [ cookies, setCookie, removeCookie] = useCookies(["accessToken", "refreshToken"]);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const { mutate, isError, isPending, error } = useMutation({
+    mutationFn: signInRequest,
+    onSuccess: (response) => {
+      console.log("onsuccess", response);
+      alert(JSON.stringify(response.data));
+
+      // const accessToken = response.headers["accessToken"];
+      // const refreshToken = response.headers["refreshToken"];
+
+      // if(accessToken){
+      //   setCookie("accessToken", accessToken, {
+      //     path: "/",
+      //     httpOnly: false,
+      //     secure: true,
+      //     sameSite: "strict"
+      //   })
+      // };
+
+      // if(refreshToken){
+      //   setCookie("refreshToken", refreshToken, {
+      //     path: "/",
+      //     httpOnly: true,
+      //     secure: true,
+      //     sameSite: "strict"
+      //   })
+      // };
+      
+    },
+    onError: (err: any) => {
+      console.log("onerror: ", err.response.data.message);
+      setErrorMessage(err.response.data.message)
+    }
+  });
+
+
+  useEffect(() => {
+    console.log(`isError: ${isError}; isPending: ${isPending}; error: ${error}`);
+  }, [isPending, isError, error]);
+
 
   const formik = useFormik({
     initialValues: {
@@ -25,7 +71,8 @@ const SignIn = () => {
     validationSchema: signInValidation,
     onSubmit: (values) => {
       values.email = values.email.toLowerCase(),
-        console.log(values);
+        mutate(values)
+      console.log(values);
     }
   });
 
@@ -37,6 +84,7 @@ const SignIn = () => {
           onSubmit={(e) => {
             e.preventDefault(),
               formik.handleSubmit()
+            // formik.resetForm()
           }}>
           <CardHeader>
             <CardTitle className="text-2xl">Sign In</CardTitle>
@@ -44,22 +92,27 @@ const SignIn = () => {
           </CardHeader>
           <CardContent>
             <div className="flex flex-col gap-2 mb-3">
-              <Label htmlFor="email">Email</Label>
+              <Label>Email</Label>
               <Input
                 type="email"
                 {...formik.getFieldProps("email")}
                 name="email"
                 placeholder="johndoe@example.com" />
-              {formik.errors.email ? <p className="text-red-500 text-sm">{formik.errors.email}</p> : null}
+              {formik.errors.email && formik.touched.email && <p className="text-red-500 text-sm">{formik.errors.email}</p>}
             </div>
             <div className="flex flex-col gap-2 mb-3">
-              <Label htmlFor="password">Password</Label>
+              <Label>Password</Label>
               <Input
                 type="password"
                 {...formik.getFieldProps("password")}
                 name="password"
                 placeholder="********" />
-              {formik.errors.password ? <p className="text-red-500 text-sm">{formik.errors.password}</p> : null}
+              {formik.errors.password && formik.touched.password && <p className="text-red-500 text-sm">{formik.errors.email}</p>}
+
+              {isError && errorMessage && (
+                <p className="text-red-500 text-sm">{errorMessage}</p>
+              )}
+
             </div>
           </CardContent>
           <CardFooter className="flex flex-col gap-3">
