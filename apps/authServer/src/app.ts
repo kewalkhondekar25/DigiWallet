@@ -7,13 +7,13 @@ import path from "path";
 import YAML from "yaml";
 import swaggerUi from "swagger-ui-express";
 
-const file = fs.readFileSync(path.resolve(__dirname, "./swagger.yaml"), "utf8");
-const swaggerDocument = YAML.parse(
-  file.replace(
-    "- url: ${server}",
-    `- url: ${process.env.API_BASE_URL || "http://localhost:8080"}/api/v1`
-  )
-);
+// const file = fs.readFileSync(path.resolve(__dirname, "./swagger.yaml"), "utf8");
+// const swaggerDocument = YAML.parse(
+//   file.replace(
+//     "- url: ${server}",
+//     `- url: ${process.env.API_BASE_URL || "http://localhost:8080"}/api/v1`
+//   )
+// );
 
 const app = express();
 
@@ -38,7 +38,7 @@ import healthCheckRouter from "./routes/healthCheck.route";
 app.use("/api/v1/health-check", healthCheckRouter);
 app.use("/api/v1/user", userRouter);
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+// app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(errorHandler);
 

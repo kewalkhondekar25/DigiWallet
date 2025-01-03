@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useFormik } from "formik";
 import { signInValidation } from "@/validations/auth.validation";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { signInRequest } from "@/lib/apiCalls";
 import { useEffect, useState } from "react";
@@ -22,12 +22,20 @@ const SignIn = () => {
   //cookie are httponly, they will be sent over https only.
   // const [ cookies, setCookie, removeCookie] = useCookies(["accessToken", "refreshToken"]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const { mutate, isError, isPending, error } = useMutation({
+
     mutationFn: signInRequest,
+
     onSuccess: (response) => {
+
       console.log("onsuccess", response);
       alert(JSON.stringify(response.data));
+
+      if(response.statusCode === 200){
+        navigate("/dashboard")
+      };
 
       // const accessToken = response.headers["accessToken"];
       // const refreshToken = response.headers["refreshToken"];
@@ -51,6 +59,7 @@ const SignIn = () => {
       // };
       
     },
+
     onError: (err: any) => {
       console.log("onerror: ", err.response.data.message);
       setErrorMessage(err.response.data.message)
@@ -64,14 +73,17 @@ const SignIn = () => {
 
 
   const formik = useFormik({
+
     initialValues: {
       email: "",
       password: ""
     },
+
     validationSchema: signInValidation,
+
     onSubmit: (values) => {
       values.email = values.email.toLowerCase(),
-        mutate(values)
+      mutate(values);
       console.log(values);
     }
   });
@@ -83,8 +95,7 @@ const SignIn = () => {
         <form
           onSubmit={(e) => {
             e.preventDefault(),
-              formik.handleSubmit()
-            // formik.resetForm()
+            formik.handleSubmit()
           }}>
           <CardHeader>
             <CardTitle className="text-2xl">Sign In</CardTitle>

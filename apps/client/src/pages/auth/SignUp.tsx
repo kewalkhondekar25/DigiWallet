@@ -11,20 +11,45 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useFormik } from "formik"
 import { signUpValidation } from "@/validations/auth.validation";
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { useMutation } from "@tanstack/react-query"
+import { signUpRequest } from "@/lib/apiCalls"
+import { useState } from "react"
 
 const SignUp = () => {
 
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const navigate = useNavigate();
+  const { mutate, isPending, isError} = useMutation({
+
+    mutationFn: signUpRequest,
+
+    onSuccess: (response) => {
+
+      console.log(response);
+      alert(JSON.stringify(response.data));
+      navigate("/otp");
+    },
+
+    onError: (err: any) => {
+      console.log(err.response.data.data);
+      setErrorMessage(err.response.data.data);
+    }
+  });
+
   const formik = useFormik({
+
     initialValues: {
       name: "",
       email: "",
       password: ""
     },
+
     validationSchema: signUpValidation,
+
     onSubmit: (values) => {
-      values.email = values.email.toLowerCase(),
-        console.log(values)
+      values.email = values.email.toLowerCase();
+      mutate(values);
     }
   });
 
@@ -48,7 +73,7 @@ const SignUp = () => {
                 {...formik.getFieldProps("name")}
                 name="name"
                 placeholder="john doe" />
-              {formik.errors.name ? <p className="text-red-500 text-sm">{formik.errors.name}</p> : null}
+              {formik.errors.name && formik.touched.name && <p className="text-red-500 text-sm">{formik.errors.name}</p>}
             </div>
             <div className="flex flex-col gap-2 mb-3">
               <Label>Email</Label>
@@ -57,7 +82,7 @@ const SignUp = () => {
                 {...formik.getFieldProps("email")}
                 name="email"
                 placeholder="johndoe@example.com" />
-              {formik.errors.email ? <p className="text-red-500 text-sm">{formik.errors.email}</p> : null}
+              {formik.errors.email && formik.touched.email && <p className="text-red-500 text-sm">{formik.errors.email}</p>}
             </div>
             <div className="flex flex-col gap-2 mb-3">
               <Label>Password</Label>
@@ -65,7 +90,10 @@ const SignUp = () => {
                 {...formik.getFieldProps("password")}
                 name="password"
                 placeholder="********" />
-              {formik.errors.password ? <p className="text-red-500 text-sm">{formik.errors.password}</p> : null}
+              {formik.errors.password && formik.touched.password && <p className="text-red-500 text-sm">{formik.errors.password}</p>}
+
+              { isError && <p className="text-red-500 text-sm">{errorMessage}</p>}
+
             </div>
           </CardContent>
           <CardFooter className="flex flex-col gap-3">

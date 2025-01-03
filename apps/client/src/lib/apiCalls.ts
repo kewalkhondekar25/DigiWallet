@@ -1,4 +1,4 @@
-import { SignInType } from "@/types/auth.types";
+import { otpType, SignInType, SignUpType } from "@/types/auth.types";
 import axiosInstance from "./axiosInstance"
 
 const signInRequest = async (signInBody: SignInType): Promise<any> => {
@@ -6,6 +6,18 @@ const signInRequest = async (signInBody: SignInType): Promise<any> => {
   return response.data;
 };
 
+const signUpRequest = async (signUpBody: SignUpType) => {
+  const response = await axiosInstance.post("/user/signup", signUpBody);
+  return response.data;
+};
+
+const otpRequest = async (otpBody: otpType) => {
+  const response = await axiosInstance.post("/user/verify-otp", otpBody);
+  return response.data;
+}
+
 export {
-  signInRequest
+  signInRequest,
+  signUpRequest,
+  otpRequest
 };
