@@ -1,4 +1,4 @@
-import { otpType, SignInType, SignUpType } from "@/types/auth.types";
+import { otpType, SignInType, SignUpType, userIdType } from "@/types/auth.types";
 import axiosInstance from "./axiosInstance"
 import axios from "axios";
 
@@ -17,7 +17,7 @@ const otpRequest = async (otpBody: otpType) => {
   return response.data;
 };
 
-const fetchUserData = async (userId: any) => {
+const fetchUserData = async (userId: userIdType) => {
   const response = await axios.post("http://localhost:8082/api/v1/user/user-data", userId);
   return response.data;
 }
