@@ -62,7 +62,7 @@ const SignIn = () => {
 
     onError: (err: any) => {
       console.log("onerror: ", err.response.data.message);
-      setErrorMessage(err.response.data.message)
+      setErrorMessage(err.response.data.message);
     }
   });
 

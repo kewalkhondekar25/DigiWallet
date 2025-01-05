@@ -12,3 +12,7 @@ export interface SignUpType {
 export interface otpType {
   otp: string
 };
+
+export interface userIdType {
+  id: number
+};

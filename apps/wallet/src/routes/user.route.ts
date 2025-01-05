@@ -1,7 +1,11 @@
 import { Router } from "express";
-import { getP2pTransfers } from "../controllers/user.controller";
+import { getP2pTransfers, getUsersData } from "../controllers/user.controller";
 
 const router = Router();
+
+router.route("/user-data").post(
+  getUsersData
+);
 
 router.route("/p2p-trnsfr").post(
   getP2pTransfers
