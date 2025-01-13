@@ -9,9 +9,12 @@ import {
 import { Button } from "../ui/button";
 import { Send, Wallet } from "lucide-react";
 import { Link } from "react-router-dom";
+import { formatAmount } from "@/lib/currencyFormat";
+import { useAppSelector } from "@/store/hooks";
 
 
 const WalletBalance = () => {
+  const { walletBalance } = useAppSelector(state => state.userState);
   return (
     <Card className="w-4/5">
       <CardHeader>
@@ -19,7 +22,7 @@ const WalletBalance = () => {
         <CardDescription>Available amount</CardDescription>
       </CardHeader>
       <CardContent>
-        <p>&#8377; 1000</p>
+        <p>&#8377; {formatAmount(walletBalance)}</p>
       </CardContent>
       <CardFooter className="flex justify-between gap-1">
         <Link to="/wallet/add-money">

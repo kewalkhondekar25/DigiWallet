@@ -16,3 +16,9 @@ export interface otpType {
 export interface userIdType {
   id: number
 };
+
+//onRamp
+export interface onRampTxnType {
+  id: number,
+  amount: number
+};

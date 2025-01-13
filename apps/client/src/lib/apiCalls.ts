@@ -1,4 +1,4 @@
-import { otpType, SignInType, SignUpType, userIdType } from "@/types/auth.types";
+import { onRampTxnType, otpType, SignInType, SignUpType, userIdType } from "@/types/auth.types";
 import axiosInstance from "./axiosInstance"
 import axios from "axios";
 
@@ -20,11 +20,17 @@ const otpRequest = async (otpBody: otpType) => {
 const fetchUserData = async (userId: userIdType) => {
   const response = await axios.post("http://localhost:8082/api/v1/user/user-data", userId);
   return response.data;
-}
+};
+
+const onRampTxnRequest = async (onRampPayload: onRampTxnType) => {
+  const response = await axios.post("http://localhost:8082/api/v1/txn/on-ramp-txn", onRampPayload);
+  return response.data;
+};
 
 export {
   signInRequest,
   signUpRequest,
   otpRequest,
-  fetchUserData
+  fetchUserData,
+  onRampTxnRequest
 };

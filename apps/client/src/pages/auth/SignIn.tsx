@@ -33,7 +33,7 @@ const SignIn = () => {
       console.log("onsuccess", response);
       alert(JSON.stringify(response.data));
 
-      if(response.statusCode === 200){
+      if (response.statusCode === 200) {
         navigate("/dashboard")
       };
 
@@ -57,7 +57,7 @@ const SignIn = () => {
       //     sameSite: "strict"
       //   })
       // };
-      
+
     },
 
     onError: (err: any) => {
@@ -83,7 +83,7 @@ const SignIn = () => {
 
     onSubmit: (values) => {
       values.email = values.email.toLowerCase(),
-      mutate(values);
+        mutate(values);
       console.log(values);
     }
   });
@@ -95,7 +95,7 @@ const SignIn = () => {
         <form
           onSubmit={(e) => {
             e.preventDefault(),
-            formik.handleSubmit()
+              formik.handleSubmit()
           }}>
           <CardHeader>
             <CardTitle className="text-2xl">Sign In</CardTitle>
